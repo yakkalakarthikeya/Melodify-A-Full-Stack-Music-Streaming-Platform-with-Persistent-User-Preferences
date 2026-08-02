@@ -34,7 +34,7 @@ No frameworks, no build tools — pure client-side implementation.
 
 ```
 Melodify/
-├── html.html          # Main markup and app structure
+├── index.html          # Main markup and app structure
 ├── styless.css         # Styling and layout
 ├── javascript.js       # App logic, player, search, favourites
 └── README.md
