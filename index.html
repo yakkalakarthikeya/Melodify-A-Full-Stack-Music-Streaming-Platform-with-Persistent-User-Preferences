@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Melodify</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="styless.css"/>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sb">
+  <div class="logo"><i class="fa-solid fa-music"></i><span>Melodify</span></div>
+  <nav class="navlinks">
+    <div class="ni active" data-sec="home"><i class="fa-solid fa-house"></i><span>Home</span></div>
+    <div class="ni" data-sec="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></div>
+    <div class="ni" data-sec="favourites"><i class="fa-solid fa-heart"></i><span>Favourites</span></div>
+    <div class="ni" data-sec="playlist"><i class="fa-solid fa-list-music"></i><span>My Playlist</span></div>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main" id="mainEl">
+
+  <!-- HOME -->
+  <section class="sec active" id="home">
+    <div class="hero">
+      <div class="hero-text">
+        <p class="htag" id="heroTag">🔥 Featured</p>
+        <h1 class="htitle" id="heroTitle">—</h1>
+        <p class="hsub" id="heroSub">—</p>
+        <div class="hbtns">
+          <button class="btnp" onclick="playHero()"><i class="fa-solid fa-play"></i> Play Now</button>
+          <button class="btno" onclick="refreshHero()"><i class="fa-solid fa-rotate"></i> New Pick</button>
+        </div>
+      </div>
+      <div class="himg-wrap">
+        <img id="heroImg" src="" alt="" class="himg"/>
+        <div class="hglow"></div>
+      </div>
+    </div>
+
+    <!-- Ticker -->
+    <div class="ticker-wrap">
+      <span class="tlabel"><i class="fa-solid fa-fire"></i>Trending</span>
+      <div class="ttrack" id="tickerEl"></div>
+    </div>
+
+    <!-- Language Chips -->
+    <div class="chips" id="chipsEl"></div>
+
+    <!-- Song of the Day -->
+    <div class="sh"><h2>🎵 Song of the Day</h2></div>
+    <div class="sotd" id="sotdEl"></div>
+
+    <!-- Recently Played -->
+    <div class="sh" id="recentSh" style="display:none"><h2>🕘 Recently Played</h2></div>
+    <div class="agrid" id="recentGrid"></div>
+
+    <!-- Stats -->
+    <div class="sh" id="statsSh" style="display:none"><h2>📊 Your Listening Stats</h2></div>
+    <div class="statgrid" id="statsGrid"></div>
+
+    <!-- Albums -->
+    <div class="sh"><h2 id="trendH">Featured Albums</h2></div>
+    <div class="agrid" id="trendGrid"></div>
+    <div class="sh"><h2 id="moreH">More Albums</h2></div>
+    <div class="agrid" id="moreGrid"></div>
+  </section>
+
+  <!-- ALBUM DETAIL -->
+  <section class="sec" id="albumDetail">
+    <div class="back" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i> Back</div>
+    <div class="adh">
+      <img id="adImg" src="" alt=""/>
+      <div>
+        <p class="htag">ALBUM</p>
+        <h1 id="adName"></h1>
+        <p id="adArtist"></p>
+        <p id="adLang"></p>
+        <p id="adCount"></p>
+        <div style="margin-top:18px">
+          <button class="btnp" id="adPlayBtn"><i class="fa-solid fa-play"></i> Play All</button>
+        </div>
+      </div>
+    </div>
+    <div class="sth"><span>#</span><span>Title</span><span>Artist</span><span>Duration</span><span></span></div>
+    <div class="slist" id="adList"></div>
+  </section>
+
+  <!-- SEARCH -->
+  <section class="sec" id="search">
+    <div class="sbar">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchQ" placeholder="Search songs, artists, albums, languages…" oninput="doSearch()"/>
+    </div>
+    <div class="sh"><h2>Browse by Language</h2></div>
+    <div class="ggrid" id="genreEl"></div>
+    <div class="sh" id="srH" style="display:none"><h2>Results</h2></div>
+    <div class="agrid" id="srGrid"></div>
+  </section>
+
+  <!-- FAVOURITES -->
+  <section class="sec" id="favourites">
+    <div class="favh">
+      <div class="favi"><i class="fa-solid fa-heart"></i></div>
+      <div><h1>Liked Songs</h1><p id="favCnt">0 songs</p></div>
+    </div>
+    <div class="pctrl">
+      <button class="btnp" onclick="playFavs()"><i class="fa-solid fa-play"></i> Play All</button>
+    </div>
+    <div class="sth"><span>#</span><span>Title</span><span>Artist</span><span>Duration</span><span></span></div>
+    <div class="slist" id="favList"><p class="empty">No liked songs yet. Hit ♥ on any song!</p></div>
+  </section>
+
+  <!-- PLAYLIST -->
+  <section class="sec" id="playlist">
+    <div class="plh">
+      <img src="https://picsum.photos/seed/pl/150/150" alt="Playlist"/>
+      <div><p class="htag">MY PLAYLIST</p><h1>All Songs</h1><p id="plCnt">0 songs</p></div>
+    </div>
+    <div class="pctrl">
+      <button class="btnp" onclick="playAll()"><i class="fa-solid fa-play"></i> Play All</button>
+    </div>
+    <div class="sth"><span>#</span><span>Title</span><span>Artist</span><span>Duration</span><span></span></div>
+    <div class="slist" id="plList"></div>
+  </section>
+
+</main>
+
+<!-- PLAYER -->
+<div class="player" id="playerEl" style="display:none">
+  <div class="ptrack">
+    <img id="pcover" src="" alt=""/>
+    <div class="pinfo">
+      <span id="ptitle">—</span>
+      <span id="partist">—</span>
+    </div>
+    <button class="hbtn" id="pheart" onclick="toggleCurFav()"><i class="fa-regular fa-heart"></i></button>
+  </div>
+  <div class="pcenter">
+    <div class="pctrlrow">
+      <button onclick="prevT()"><i class="fa-solid fa-backward-step"></i></button>
+      <button class="ppbtn" id="ppBtn" onclick="togglePlay()"><i class="fa-solid fa-play"></i></button>
+      <button onclick="nextT()"><i class="fa-solid fa-forward-step"></i></button>
+    </div>
+    <div class="progwrap">
+      <span id="ctime">0:00</span>
+      <div class="progbar" onclick="seekT(event)"><div class="progfill" id="progFill"></div></div>
+      <span id="ttime">0:00</span>
+    </div>
+  </div>
+  <div class="pright">
+    <i class="fa-solid fa-volume-high" style="color:var(--muted);font-size:.82rem"></i>
+    <input type="range" min="0" max="100" value="70" title="Volume"/>
+  </div>
+</div>
+
+<div class="toast" id="toastEl"></div>
+
+<script src="javascript.js"></script>
+</body>
+</html>
